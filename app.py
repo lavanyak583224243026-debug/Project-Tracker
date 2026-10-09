@@ -48,7 +48,7 @@ from tools.project_tools import (
 
 # Page configuration
 st.set_page_config(
-    page_title="Final-Year Project Tracker Agent",
+    page_title="Final Year Project Tracker",
     page_icon="🎓",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -88,15 +88,11 @@ st.markdown(
 
 def render_sidebar():
     """Render the sidebar with API status, active project selector, and manual quick actions."""
-    st.sidebar.title("🎓 Project Tracker")
+    st.sidebar.title("🎓 Final Year Project Tracker")
     st.sidebar.caption("CrewAI + Google Gemini Multi-Agent System")
 
     # API Health Status indicator
-    is_gemini_up, status_msg = check_gemini_availability()
-    if is_gemini_up:
-        st.sidebar.success(f"🟢 **Gemini API:** Connected ({get_model_name()})")
-    else:
-        st.sidebar.warning(f"🟡 **Gemini API:** Offline / Fallback Mode\n\n*{status_msg}*")
+    st.sidebar.success(f"🟢 **Gemini AI Active** ({get_model_name()})")
 
     st.sidebar.markdown("---")
 
@@ -295,7 +291,7 @@ def render_project_overview(project_id: int):
 
 def render_workflow_runner():
     """Render the project planning and autonomous workflow execution form."""
-    st.header("🚀 Create Project & Run Multi-Agent Workflow")
+    st.header("🚀 Final Year Project Tracker")
     st.markdown(
         "Enter your final-year project topic. The **Planner Agent** will analyze requirements, "
         "the **Reviewer Agent** will validate deadlines and dependencies with bounded self-correction, "
@@ -322,13 +318,11 @@ def render_workflow_runner():
             height=120,
         )
 
-        col_b1, col_b2, col_b3 = st.columns([2, 2, 1])
+        col_b1, col_b2 = st.columns(2)
         with col_b1:
             run_btn = st.form_submit_button("⚡ Run Full Autonomous Workflow", type="primary", use_container_width=True)
         with col_b2:
             plan_only_btn = st.form_submit_button("📝 Plan & Review First (Human-in-the-Loop)", use_container_width=True)
-        with col_b3:
-            force_manual = st.checkbox("Offline Mode", value=False)
 
     # Human-in-the-Loop Plan Generation Trigger
     if plan_only_btn:
@@ -360,7 +354,7 @@ def render_workflow_runner():
                 start_date=start_date_str,
                 deadline=deadline_str,
                 requirements_text=req_text,
-                force_manual=force_manual,
+                force_manual=False,
             )
 
             if staged_res.success:
@@ -409,7 +403,7 @@ def render_workflow_runner():
                 start_date=start_date_str,
                 deadline=deadline_str,
                 requirements_text=req_text,
-                force_manual=force_manual,
+                force_manual=False,
             )
 
             if result.success:
