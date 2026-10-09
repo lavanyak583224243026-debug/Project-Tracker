@@ -1,20 +1,23 @@
+```gitignore
 # Environment variables
 .env
+.env.*
+!.env.example
 
-# Virtual environment
+# Virtual environments
 .venv/
 venv/
 ENV/
 
-# Python cache
+# Python cache and testing
 __pycache__/
 *.py[cod]
 *$py.class
-*.pytest_cache/
+.pytest_cache/
 .coverage
 htmlcov/
 
-# Local databases and runtime data
+# Local databases
 *.db
 *.sqlite
 *.sqlite3
@@ -25,10 +28,14 @@ uploads/
 reports/
 *.csv
 *.txt
+!requirements.txt
 
-# Streamlit config/cache
+# Streamlit config and cache
 .streamlit/
 
-# OS files
+# OS and editor files
 .DS_Store
 Thumbs.db
+.vscode/
+```
+
